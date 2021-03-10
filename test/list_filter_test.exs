@@ -3,32 +3,20 @@ defmodule ListFilterTest do
 
   describe "call/1" do
 
-    test "returns zero for an empty list" do
-      result = ListFilter.call []
-      expected_result = 0
+    @parameters [
+      {0, 0, []},
+      {1, 0, ["banana", "apple", "orange"]},
+      {2, 0, ["2", "banana", "4", "apple", "orange", "6"]},
+      {3, 3, ["1", "3", "6", "43", "banana", "6", "abc"]},
+    ]
 
-      assert expected_result == result
-    end
+    for {index, expected, input} <- @parameters do
+      test "count the odd numbers within a strings list (index=#{index})" do
+        result = ListFilter.call unquote(input)
+        expected_result = unquote(expected)
 
-    test "returns zero for an list with only strings" do
-      result = ListFilter.call ["banana", "apple", "orange"]
-      expected_result = 0
-
-      assert expected_result == result
-    end
-
-    test "returns zero for an list without odd numbers" do
-      result = ListFilter.call ["2", "banana", "4", "apple", "orange", "6"]
-      expected_result = 0
-
-      assert expected_result == result
-    end
-
-    test "returns the number of odd numbers within the strings list" do
-      result = ListFilter.call ["1", "3", "6", "43", "banana", "6", "abc"]
-      expected_result = 3
-
-      assert expected_result == result
+        assert result == expected_result
+      end
     end
   end
 end
