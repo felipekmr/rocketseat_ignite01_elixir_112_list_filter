@@ -1,18 +1,23 @@
 defmodule ListFilter do
   @moduledoc """
-  Documentation for `ListFilter`.
+  Count the odd numbers from a list of strings.
   """
 
+  require Integer
+
   @doc """
-  Hello world.
+  Count the odd numbers from a list of strings.
 
   ## Examples
 
-      iex> ListFilter.hello()
-      :world
+      iex> ListFilter.call(["1", "3", "6", "43", "banana", "6", "abc"])
+      3
 
   """
-  def hello do
-    :world
-  end
+  def call(list), do: Enum.count(list, fn element ->
+    case Integer.parse(element) do
+      {int, _rest}  -> Integer.is_odd(int)
+      :error        -> false
+    end
+  end)
 end
